@@ -1,0 +1,112 @@
+<div class="modal-header">
+    <h4 *ngIf="editMode" class="modal-title">Edit Ticket</h4>
+    <h4 *ngIf="!editMode" class="modal-title">Add new Ticket</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit(ticketForm.value,content)">
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label for="ticketName">Ticket Name</label>
+            <input type="text" id="ticketName" class="form-control" placeholder="Enter Ticket Name" required formControlName="ticketName">
+            <ng-container *ngIf="ticketForm.controls.ticketName.invalid && (ticketForm.controls.ticketName.dirty || ticketForm.controls.ticketName.touched)">
+                <div class="errorDiv" *ngIf="ticketForm.controls.ticketName.errors?.required">
+                    Ticket Name is required.
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="ticketNumber">Ticket Number</label>
+            <input type="text" id="ticketNumber" class="form-control" placeholder="Enter Ticket Number" required formControlName="ticketNumber">
+            <ng-container *ngIf="ticketForm.controls.ticketNumber.invalid && (ticketForm.controls.ticketNumber.dirty || ticketForm.controls.ticketNumber.touched)">
+                <div class="errorDiv" *ngIf="ticketForm.controls.ticketNumber.errors?.required">
+                    Ticket Number is required.
+                </div>
+
+            </ng-container>
+        </div>
+        <div class="form-group">
+            <label for="client">Client Name</label>
+            <select formControlName="client" class="form-control" id="client" placeholder="Select Client Name" required>
+            <option *ngFor="let client of clients; let i = index" [value]="client.id">
+              {{client.clientName}}
+            </option>
+          </select>
+            <ng-container *ngIf="ticketForm.controls.client.invalid && (ticketForm.controls.client.dirty || ticketForm.controls.client.touched)">
+                <div class="errorDiv" *ngIf="ticketForm.controls.client.errors?.required">
+                    Client Name is required.
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="ticketType">Ticket Type</label>
+            <input type="text" id="ticketType" class="form-control" placeholder="Enter Ticket Type" required formControlName="ticketType">
+            <ng-container *ngIf="ticketForm.controls.ticketType.invalid && (ticketForm.controls.ticketType.dirty || ticketForm.controls.ticketType.touched)">
+                <div class="errorDiv" *ngIf="ticketForm.controls.ticketType.errors?.required">
+                    Ticket Type is required.
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input type="date" class="form-control" id="startDate" (input)="checkDate()" formControlName="startDate" required>
+            <ng-container *ngIf="ticketForm.controls.startDate.invalid && (ticketForm.controls.startDate.dirty || ticketForm.controls.startDate.touched)">
+                <div class="errorDiv" *ngIf="ticketForm.controls.startDate.errors?.required">
+                    Start Date is required.
+                </div>
+            </ng-container>
+
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input type="date" class="form-control" id="endDate" (input)="checkDate()" formControlName="endDate" required>
+            <ng-container *ngIf="ticketForm.controls.endDate.invalid && (ticketForm.controls.endDate.dirty || ticketForm.controls.endDate.touched)">
+                <div class="errorDiv" *ngIf="ticketForm.controls.endDate.errors?.required">
+                    End Date is required.
+                </div>
+            </ng-container>
+            <ng-container>
+                <div class="errorDiv" *ngIf="!dateMsg">
+                    The End Date should be greater than Start Date.
+                </div>
+            </ng-container>
+        </div>
+        <div class="form-group">
+            <label for="note">Notes</label>
+            <textarea class="form-control" id="note" rows="3" formControlName="note">Enter Ticket Details</textarea>
+        </div>
+
+        <!--(click)="activeModal.dismiss('cancel click')"-->
+    </div>
+    <div class="modal-footer">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button type="submit" class="btn btn-success" [disabled]="!(ticketForm.valid && dateMsg)">Save</button>
+            <button type="button" class="btn btn-danger " style="margin:0 2px" (click)="activeModal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</form>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" style="color: red;">Error</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <p> {{ errorMessage }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

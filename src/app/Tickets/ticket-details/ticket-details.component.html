@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title">Ticket Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="form-group">
+        <label for="ticketName">Ticket Number</label>
+        <input type="text" id="ticketName" class="form-control" disabled [(ngModel)]="ticket.ticketNumber">
+
+    </div>
+
+    <div class="form-group">
+        <label for="Date">Creation Date</label>
+        <input type="text" id="Date" class="form-control" disabled [(ngModel)]="creationDate">
+    </div>
+
+    <div class="form-group">
+        <label for="note">Notes</label>
+        <textarea class="form-control" id="note" rows="3" disabled [(ngModel)]="ticket.note"></textarea>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <button type="button" class="btn btn-danger " style="margin:0 2px" (click)="activeModal.dismiss('Cross click')">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="row" style="flex-flow: row-reverse;padding:2%;">
+    <a href="login" class="btn btn-info btn-lg">
+        <i class="fas fa-sign-out-alt"></i> Log out
+    </a>
+</div>
+<div class="container" style="padding: 3%;">
+    <div class="row" style="padding: 1%;">
+        <div class="col-3">
+            <h3> Tickets – List</h3>
+        </div>
+        <div class="col-6">
+
+        </div>
+        <div class="col">
+            <div class="row justify-content-end">
+                <button style="margin-right:15px ;" type="button" class="btn btn-labeled btn-success" (click)="addTicket()">
+                + Add Ticket</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ticket Name</th>
+                <th scope="col" *ngIf="userType==1">Client Name</th>
+                <th scope="col">Ticket Type</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" *ngIf="userType==1"></th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let  item of tickets">
+                <th scope="row">{{ item.id }}</th>
+                <td>{{item.ticketName}}</td>
+                <td *ngIf="userType==1">{{item.client.clientName}}</td>
+                <td>{{item.ticketType}}</td>
+                <td>{{item.startDate |date:'yyyy-MMM-dd'}}</td>
+                <td>{{item.endDate |date:'yyyy-MMM-dd'}}</td>
+
+                <td>
+                    <button type="button" class="btn btn-labeled btn-info" (click)="editTicket(item)">
+                    Edit</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-labeled btn-danger" (click)="openConfirmMessage(item,content)">
+                    Delete</button>
+                </td>
+                <td *ngIf="userType==1">
+                    <button type="button" class="btn btn-labeled btn-secondary" (click)="details(item)">
+                    Details</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshTickets()">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshTickets()">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+    </select>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Ticket deletion</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure you want to delete <span class="text-primary">{{deletedTicket.ticketName}}</span> Client?</strong></p>
+        <p>All information associated to this Ticket will be permanently deleted.
+            <span class="text-danger">This operation can not be undo.</span>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="deleteTicket()">Ok</button>
+    </div>
+</ng-template>

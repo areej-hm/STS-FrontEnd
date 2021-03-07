@@ -1,0 +1,113 @@
+<div class="container" style="padding: 5%;">
+    <div class="row" style="padding: 1%;">
+        <div>
+            <h3> Registered Form </h3>
+        </div>
+        <!-- <div class="col-6">
+
+        </div> -->
+        <!-- <div class="col">
+            <div class="row justify-content-end">
+                <button style="margin-right:15px ;" type="button" class="btn btn-labeled btn-success" (click)="addClient()">
+                + Add Client</button>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row no-gutters register">
+        <form [formGroup]="RegForm" (ngSubmit)="onSubmit(RegForm.value,content)" class="formRegister">
+            <div class="rowForm">
+                <div class="form-group itemForm">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter Username" required formControlName="username">
+                    <ng-container *ngIf="RegForm.controls.username.invalid && (RegForm.controls.username.dirty || RegForm.controls.username.touched)">
+                        <div class="errorDiv" *ngIf="RegForm.controls.username.errors?.required">
+                            Username is required.
+                        </div>
+
+                    </ng-container>
+                </div>
+                <div class="form-group itemForm">
+                    <label for="clientName">Client Name</label>
+                    <input type="text" id="clientName" class="form-control" placeholder="Enter Client Name" required formControlName="clientName">
+                    <ng-container *ngIf="RegForm.controls.clientName.invalid && (RegForm.controls.clientName.dirty || RegForm.controls.clientName.touched)">
+                        <div class="errorDiv" *ngIf="RegForm.controls.clientName.errors?.required">
+                            Client Name is required.
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+            <div class="rowForm">
+                <div class="form-group itemForm">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" (input)="checkDuplicat()" placeholder="Enter Password" required formControlName="password">
+                    <ng-container *ngIf="RegForm.controls.password.invalid && (RegForm.controls.password.dirty || RegForm.controls.password.touched)">
+                        <div class="errorDiv" *ngIf="RegForm.controls.password.errors?.required">
+                            Password is required.
+                        </div>
+
+                    </ng-container>
+                </div>
+                <div class="form-group itemForm">
+                    <label for="confirmPass">Confirm Password</label>
+                    <input type="password" id="confirmPass" (input)="checkDuplicat()" class="form-control" placeholder="Enter Confirm Password" required formControlName="confirmPass">
+                    <ng-container *ngIf="RegForm.controls.confirmPass.invalid && (RegForm.controls.confirmPass.dirty || RegForm.controls.confirmPass.touched)">
+                        <div class="errorDiv" *ngIf="RegForm.controls.confirmPass.errors?.required">
+                            Confirm Password is required.
+                        </div>
+                    </ng-container>
+                    <ng-container>
+                        <div class="errorDiv" *ngIf="!notDuplicatMsg">
+                            The password and the confirm should be the same.
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+            <div class="rowForm">
+                <div class="form-group itemForm">
+                    <label for="clientAddress">Address</label>
+                    <input type="text" class="form-control" id="clientAddress" placeholder="Enter Address" formControlName="clientAddress" required>
+                    <ng-container *ngIf="RegForm.controls.clientAddress.invalid && (RegForm.controls.clientAddress.dirty || RegForm.controls.clientAddress.touched)">
+                        <div class="errorDiv" *ngIf="RegForm.controls.clientAddress.errors?.required">
+                            Address is required.
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="form-group itemForm">
+                    <label for="clientPhone">Phone Number</label>
+                    <input type="text" class="form-control" id="clientPhone" placeholder="Enter Phone" formControlName="clientPhone" required>
+                    <ng-container *ngIf="RegForm.controls.clientPhone.invalid && (RegForm.controls.clientPhone.dirty || RegForm.controls.clientPhone.touched)">
+                        <div class="errorDiv" *ngIf="RegForm.controls.clientPhone.errors?.required">
+                            Phone Number is required.
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+            <!--(click)="activeModal.dismiss('cancel click')"-->
+            <div class="actions">
+                <button type="submit" class="btn btn-success" [disabled]="!(RegForm.valid && notDuplicatMsg)">Save</button>
+                <button type="button" class="btn btn-danger " style="margin:0 2px" (click)="router.navigate(['']);">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" style="color: red;">Error</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <p> {{ errorMessage }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

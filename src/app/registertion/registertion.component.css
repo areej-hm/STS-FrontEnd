@@ -1,0 +1,27 @@
+.register {
+    margin: 20px;
+}
+
+.formRegister {
+    width: 100%
+}
+
+.rowForm {
+    display: flex;
+}
+
+.itemForm {
+    margin: 10px;
+    flex: 50%;
+}
+
+.actions {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.errorDiv {
+    color: red;
+    padding: 1%;
+}
