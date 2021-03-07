@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-//import { AddEditEmployeesComponent } from './add-edit-employees/add-edit-employees.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,8 +20,6 @@ import { TicketDetailsComponent } from './Tickets/ticket-details/ticket-details.
 @NgModule({
   declarations: [
     AppComponent,
-    //ViewEmployeesComponent,
-    //AddEditEmployeesComponent,
     ClientListComponent,
     LoginComponent,
     TicketsListComponent,
